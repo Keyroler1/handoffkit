@@ -6,11 +6,11 @@ import { copyFixture, listFiles, makeTempDir, removeTempDir } from './helpers.js
 
 describe('agent pack generation', () => {
   it('writes the promised files only inside the selected output folder', async () => {
-    const tempDir = await makeTempDir('handoffkit-pack')
+    const tempDir = await makeTempDir('ai-repo-readiness-pack')
     try {
       const repo = await copyFixture('node-good', tempDir)
       const before = await listFiles(repo)
-      const outDir = join(tempDir, 'handoffkit-pack')
+      const outDir = join(tempDir, 'ai-repo-readiness-pack')
 
       const result = await generateAgentPack(repo, outDir, { llmSummary: 'Focus on MCP config examples.' })
 
@@ -19,8 +19,8 @@ describe('agent pack generation', () => {
       await expect(stat(join(outDir, 'skills', 'agent-setup.md'))).resolves.toBeTruthy()
       await expect(stat(join(outDir, 'promptfoo.yaml'))).resolves.toBeTruthy()
       await expect(stat(join(outDir, 'mcp-review.md'))).resolves.toBeTruthy()
-      await expect(stat(join(outDir, 'handoffkit-report.md'))).resolves.toBeTruthy()
-      await expect(stat(join(outDir, 'handoffkit-report.json'))).resolves.toBeTruthy()
+      await expect(stat(join(outDir, 'ai-repo-readiness-report.md'))).resolves.toBeTruthy()
+      await expect(stat(join(outDir, 'ai-repo-readiness-report.json'))).resolves.toBeTruthy()
       await expect(stat(join(outDir, 'skills', 'llm-synthesis.md'))).resolves.toBeTruthy()
       await expect(listFiles(repo)).resolves.toEqual(before)
       expect(result.files.map((file) => file.replaceAll('\\', '/'))).toContain('AGENTS.md')

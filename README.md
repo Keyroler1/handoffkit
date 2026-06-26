@@ -1,12 +1,12 @@
-# HandoffKit
+# AI Repo Readiness
 
-HandoffKit audits whether a repository, tool, or MCP server is ready for AI agents to use safely and repeatably.
+AI Repo Readiness audits whether a repository, tool, or MCP server is ready for AI agents to use safely and repeatably.
 
 It starts as a CLI and GitHub Action. There is no hosted dashboard, billing system, or required API key in v1.
 
 ## What It Checks
 
-HandoffKit scores five categories:
+AI Repo Readiness scores five categories:
 
 | Category | Weight |
 |---|---:|
@@ -19,10 +19,10 @@ HandoffKit scores five categories:
 ## Install
 
 ```bash
-npm install -g github:Keyroler1/handoffkit
+npm install -g github:Keyroler1/ai-repo-readiness
 ```
 
-The `handoffkit` npm package name is available, but this machine is not authenticated to npm yet. After publishing, the install command will become `npm install -g handoffkit`.
+The `ai-repo-readiness` npm package name is available, but this machine is not authenticated to npm yet. After publishing, the install command will become `npm install -g ai-repo-readiness`.
 
 For local development:
 
@@ -35,18 +35,18 @@ npm link
 ## CLI
 
 ```bash
-handoffkit audit <path>
-handoffkit audit <path> --json
-handoffkit generate <path> --out handoffkit-pack
-handoffkit check-mcp <command-or-config>
-handoffkit ci <path> --out handoffkit-artifacts
+ai-repo-readiness audit <path>
+ai-repo-readiness audit <path> --json
+ai-repo-readiness generate <path> --out ai-repo-readiness-pack
+ai-repo-readiness check-mcp <command-or-config>
+ai-repo-readiness ci <path> --out ai-repo-readiness-artifacts
 ```
 
 `audit` is read-only and prints to stdout. `generate` writes only to the selected output folder.
 
 ## Generated Pack
 
-`handoffkit generate . --out handoffkit-pack` creates:
+`ai-repo-readiness generate . --out ai-repo-readiness-pack` creates:
 
 - `AGENTS.md`
 - `repo-map.md`
@@ -55,15 +55,15 @@ handoffkit ci <path> --out handoffkit-artifacts
 - `skills/mcp-safety.md`
 - `promptfoo.yaml`
 - `mcp-review.md`
-- `handoffkit-report.md`
-- `handoffkit-report.json`
+- `ai-repo-readiness-report.md`
+- `ai-repo-readiness-report.json`
 
 ## Optional LLM Synthesis
 
-HandoffKit works deterministically without API keys. If you want a short LLM-written synthesis, pass `--llm` and set `OPENAI_API_KEY`.
+AI Repo Readiness works deterministically without API keys. If you want a short LLM-written synthesis, pass `--llm` and set `OPENAI_API_KEY`.
 
 ```bash
-OPENAI_API_KEY=... handoffkit generate . --out handoffkit-pack --llm
+OPENAI_API_KEY=... ai-repo-readiness generate . --out ai-repo-readiness-pack --llm
 ```
 
 If `OPENAI_API_KEY` is missing, the deterministic report still works.
@@ -71,28 +71,28 @@ If `OPENAI_API_KEY` is missing, the deterministic report still works.
 ## GitHub Action
 
 ```yaml
-name: HandoffKit
+name: AI Repo Readiness
 
 on:
   pull_request:
 
 jobs:
-  handoffkit:
+  ai-repo-readiness:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: write
     steps:
       - uses: actions/checkout@v4
-      - uses: your-org/handoffkit@v0
+      - uses: your-org/ai-repo-readiness@v0
         with:
           path: .
-          out: handoffkit-artifacts
+          out: ai-repo-readiness-artifacts
           comment: "true"
           github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-The Action uploads `handoffkit-report.md` and `handoffkit-report.json` as artifacts and writes the Markdown report to the GitHub step summary.
+The Action uploads `ai-repo-readiness-report.md` and `ai-repo-readiness-report.json` as artifacts and writes the Markdown report to the GitHub step summary.
 
 ## Validation Loop
 

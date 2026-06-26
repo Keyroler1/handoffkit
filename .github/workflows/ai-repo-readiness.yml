@@ -1,10 +1,10 @@
-name: HandoffKit
+name: AI Repo Readiness
 
 on:
   pull_request:
 
 jobs:
-  handoffkit:
+  ai-repo-readiness:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -14,5 +14,5 @@ jobs:
       - uses: ./
         with:
           path: .
-          out: handoffkit-artifacts
+          out: ai-repo-readiness-artifacts
           comment: "false"

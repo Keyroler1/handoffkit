@@ -6,14 +6,14 @@ import { copyFixture, makeTempDir, removeTempDir } from './helpers.js'
 
 describe('report rendering', () => {
   it('renders stable markdown and JSON-safe reports without leaking secret values', async () => {
-    const tempDir = await makeTempDir('handoffkit-report')
+    const tempDir = await makeTempDir('ai-repo-readiness-report')
     try {
       const repo = await copyFixture('mcp-risky', tempDir)
       const report = calculateScorecard(await scanRepository(repo))
       const markdown = renderMarkdownReport(report)
       const json = JSON.stringify(report)
 
-      expect(markdown).toContain('# HandoffKit Report')
+      expect(markdown).toContain('# AI Repo Readiness Report')
       expect(markdown).toContain('Overall score')
       expect(markdown).not.toContain('fake-risky-token-value-123456')
       expect(json).not.toContain('fake-risky-token-value-123456')

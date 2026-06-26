@@ -21,7 +21,7 @@ export function renderMarkdownReport(report: AuditReport, mcpResults: McpScanRes
     ? mcpResults.map(renderMcpResult).join('\n\n')
     : 'No MCP targets were scanned separately.'
 
-  return `# HandoffKit Report
+  return `# AI Repo Readiness Report
 
 **Repository:** ${report.repo.name}
 **Overall score:** ${report.overallScore}/100

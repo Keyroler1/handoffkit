@@ -5,7 +5,7 @@ import { copyFixture, listFiles, makeTempDir, removeTempDir } from './helpers.js
 
 describe('repository scanner and scorecard', () => {
   it('scores a documented Node tool higher than a poor repo', async () => {
-    const tempDir = await makeTempDir('handoffkit-scan')
+    const tempDir = await makeTempDir('ai-repo-readiness-scan')
     try {
       const goodRepo = await copyFixture('node-good', tempDir)
       const poorRepo = await copyFixture('poor-repo', tempDir)
@@ -23,7 +23,7 @@ describe('repository scanner and scorecard', () => {
   })
 
   it('detects Python setup, CI, tests, and env examples', async () => {
-    const tempDir = await makeTempDir('handoffkit-python')
+    const tempDir = await makeTempDir('ai-repo-readiness-python')
     try {
       const repo = await copyFixture('python-good', tempDir)
       const signals = await scanRepository(repo)
@@ -38,7 +38,7 @@ describe('repository scanner and scorecard', () => {
   })
 
   it('audit scanning is read-only', async () => {
-    const tempDir = await makeTempDir('handoffkit-readonly')
+    const tempDir = await makeTempDir('ai-repo-readiness-readonly')
     try {
       const repo = await copyFixture('node-good', tempDir)
       const before = await listFiles(repo)
